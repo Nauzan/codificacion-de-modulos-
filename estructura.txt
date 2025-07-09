@@ -1,0 +1,127 @@
+Listado de rutas de carpetas para el volumen SYSTEM
+El n£mero de serie del volumen es ACC5-C297
+C:.
+³   .gitattributes
+³   .gitignore
+³   estructura.txt
+³   HELP.md
+³   mvnw
+³   mvnw.cmd
+³   pom.xml
+³   
+ÃÄÄÄ.mvn
+³   ÀÄÄÄwrapper
+³           maven-wrapper.properties
+³           
+ÃÄÄÄ.vscode
+³       settings.json
+³       
+ÃÄÄÄsrc
+³   ÃÄÄÄmain
+³   ³   ÃÄÄÄjava
+³   ³   ³   ÀÄÄÄcom
+³   ³   ³       ÃÄÄÄapi
+³   ³   ³       ³   ³   CrudApplication.java
+³   ³   ³       ³   ³   
+³   ³   ³       ³   ÀÄÄÄCRUD
+³   ³   ³       ³       ³   README.md
+³   ³   ³       ³       ³   
+³   ³   ³       ³       ÃÄÄÄcontroller
+³   ³   ³       ³       ³       LoginController.java
+³   ³   ³       ³       ³       ReservaController.java
+³   ³   ³       ³       ³       UsuarioController.java
+³   ³   ³       ³       ³       
+³   ³   ³       ³       ÃÄÄÄmodel
+³   ³   ³       ³       ³       Reserva.java
+³   ³   ³       ³       ³       Usuario.java
+³   ³   ³       ³       ³       
+³   ³   ³       ³       ÃÄÄÄrepository
+³   ³   ³       ³       ³       UsuarioRepository.java
+³   ³   ³       ³       ³       
+³   ³   ³       ³       ÀÄÄÄservice
+³   ³   ³       ³               ReservaService.java
+³   ³   ³       ³               UsuarioService.java
+³   ³   ³       ³               
+³   ³   ³       ÀÄÄÄrepository
+³   ³   ³               ReservaRepository.java
+³   ³   ³               UsuarioRepository.java
+³   ³   ³               
+³   ³   ÀÄÄÄresources
+³   ³       ³   application.properties
+³   ³       ³   
+³   ³       ÃÄÄÄstatic
+³   ³       ³   ³   login.html
+³   ³       ³   ³   
+³   ³       ³   ÀÄÄÄpag.web.paraiso
+³   ³       ³       ³   index.html
+³   ³       ³       ³   script.js
+³   ³       ³       ³   styles.css
+³   ³       ³       ³   
+³   ³       ³       ÀÄÄÄimages
+³   ³       ³               about.jpg
+³   ³       ³               contact.jpg
+³   ³       ³               hotel_main.jpg
+³   ³       ³               logo.png
+³   ³       ³               services.jpg
+³   ³       ³               
+³   ³       ÀÄÄÄtemplates
+³   ÀÄÄÄtest
+³       ÀÄÄÄjava
+³           ÀÄÄÄcom
+³               ÀÄÄÄapi
+³                   ÀÄÄÄCRUD
+³                           CrudApplicationTests.java
+³                           
+ÀÄÄÄtarget
+    ÃÄÄÄclasses
+    ³   ³   application.properties
+    ³   ³   
+    ³   ÃÄÄÄcom
+    ³   ³   ÃÄÄÄapi
+    ³   ³   ³   ÀÄÄÄCRUD
+    ³   ³   ³       ³   CrudApplication.class
+    ³   ³   ³       ³   
+    ³   ³   ³       ÃÄÄÄcontroller
+    ³   ³   ³       ³       LoginController.class
+    ³   ³   ³       ³       ReservaController.class
+    ³   ³   ³       ³       UsuarioController.class
+    ³   ³   ³       ³       
+    ³   ³   ³       ÃÄÄÄmodel
+    ³   ³   ³       ³       Reserva.class
+    ³   ³   ³       ³       Usuario.class
+    ³   ³   ³       ³       
+    ³   ³   ³       ÃÄÄÄrepository
+    ³   ³   ³       ³       ReservaRepository.class
+    ³   ³   ³       ³       UsuarioRepository.class
+    ³   ³   ³       ³       
+    ³   ³   ³       ÀÄÄÄservice
+    ³   ³   ³               ReservaService.class
+    ³   ³   ³               UsuarioService.class
+    ³   ³   ³               
+    ³   ³   ÀÄÄÄrepository
+    ³   ³           UsuarioRepository.class
+    ³   ³           
+    ³   ÀÄÄÄstatic
+    ³       ³   login.html
+    ³       ³   
+    ³       ÀÄÄÄpag.web.paraiso
+    ³           ³   index.html
+    ³           ³   script.js
+    ³           ³   styles.css
+    ³           ³   
+    ³           ÀÄÄÄimages
+    ³                   about.jpg
+    ³                   contact.jpg
+    ³                   hotel_main.jpg
+    ³                   logo.png
+    ³                   services.jpg
+    ³                   
+    ÃÄÄÄgenerated-sources
+    ³   ÀÄÄÄannotations
+    ÀÄÄÄmaven-status
+        ÀÄÄÄmaven-compiler-plugin
+            ÀÄÄÄcompile
+                ÀÄÄÄdefault-compile
+                        createdFiles.lst
+                        inputFiles.lst
+                        

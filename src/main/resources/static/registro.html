@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro - Hotel Paraíso</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('imagenes/contact.jpg');
+            background-color: #eef2f3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .registro-container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            width: 300px;
+        }
+        .registro-container img {
+            display: block;
+            margin: 0 auto 15px;
+            width: 120px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+        button {
+            margin-top: 15px;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .volver {
+            text-align: center;
+            margin-top: 15px;
+        }
+        .volver a {
+            font-size: 13px;
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="registro-container">
+        <img src="imagenes/logo.hotel.png" alt="Logo Hotel Paraíso">
+        
+        <h2>Registro</h2>
+<form id="registro-form">
+
+  <label for="nombre">Nombre:</label>
+  <input type="text" id="nombre" name="nombre" required>
+
+  <label for="cedula">Cédula:</label>
+  <input type="text" id="cedula" name="cedula" required>
+
+  <label for="telefono">Teléfono:</label>
+  <input type="text" id="telefono" name="telefono" required>
+
+  <label for="correo">Correo:</label>
+  <input type="email" id="correo" name="correo" required>
+
+  <label for="contrasena">Contraseña:</label>
+  <input type="password" id="contrasena" name="contrasena" required>
+
+  <button type="submit">Registrarme</button>
+
+</form>
+
+        <div class="volver">
+            <a href="login.html">← Volver al inicio de sesión</a>
+        </div>
+    </div>
+    <script>
+        document.getElementById("registro-form").addEventListener("submit", function (event) {
+          event.preventDefault(); // Evita que se recargue
+      
+          // Puedes leer los campos si deseas enviar datos al backend:
+          const nombre = document.getElementById("nombre").value;
+          const cedula = document.getElementById("cedula").value;
+          const telefono = document.getElementById("telefono").value;
+          const correo = document.getElementById("correo").value;
+          const contrasena = document.getElementById("contrasena").value;
+      
+          // Puedes enviar al backend si ya tienes el controlador Spring para guardar el usuario
+          fetch('/api/usuarios', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              nombre: nombre,
+              cedula: cedula,
+              telefono: telefono,
+              correo: correo,
+              contrasena: contrasena
+            })
+          })
+          .then(response => {
+            if (response.ok) {
+              alert("✅ Registro exitoso. Serás redirigido al login.");
+              window.location.href = "login.html"; // 👈 Redirección
+            } else {
+              alert("❌ Hubo un error al registrar.");
+            }
+          })
+          .catch(error => {
+            console.error("Error:", error);
+            alert("❌ Error del servidor.");
+          });
+        });
+      </script>
+      
+</body>
+</html>

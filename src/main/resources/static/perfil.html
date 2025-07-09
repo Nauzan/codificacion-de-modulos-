@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Perfil del Usuario - Hotel Paraíso</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    header {
+      background-color: #9c7300;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+
+    nav {
+      background-color: #c99f2c;
+      overflow: hidden;
+    }
+
+    nav a {
+      float: left;
+      display: block;
+      color: #ffffff;
+      text-align: center;
+      padding: 14px 20px;
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      background-color: #c99f2c;
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    section {
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      color: #070707;
+    }
+
+    .item-box {
+      border: 1px solid #ccc;
+      padding: 15px;
+      border-radius: 10px;
+      background-color: #ffffff;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  
+   
+
+<header>
+  <img src="imagenes/logo.hotel.png" alt="Logo Hotel Paraíso"> <h1>Bienvenido al Hotel Paraíso</h1>
+
+</header>
+
+<section id="datos-personales">
+  <h2>👤 Datos Personales</h2>
+  <div class="item-box">
+    <p><strong>Nombre:</strong> <span id="nombre"></span></p>
+    <p><strong>Cédula:</strong> <span id="cedula"></span></p>
+    <p><strong>Teléfono:</strong> <span id="telefono"></span></p>
+    <p><strong>Correo:</strong> <span id="correo"></span></p>
+  </div>
+</section>
+
+<nav>
+  <a href="#home">🏠 Casa</a>
+  <a href="#habitaciones">🛏️ Habitaciones</a>
+  <a href="#reservas">📝 Reservas</a>
+  <a href="#areas">💦 Áreas Húmedas</a>
+  <a href="#menu">🍽️ Menú</a>
+</nav>
+
+<div class="content">
+  <section id="home">
+    <h2>🏠 Casa</h2>
+    <p>¡Disfruta tu estadía en el Hotel Paraíso!</p>
+  </section>
+
+  <section id="habitaciones">
+    <h2>🛏️ Habitaciones</h2>
+    <div class="item-box">Habitación sencilla - $50.000 / noche</div>
+    <div class="item-box">Habitación doble - $100.000 / noche</div>
+    <div class="item-box">Suite familiar - $150.000 / noche</div>
+  </section>
+
+  <section id="reservas">
+    <h2>📝 Reserva</h2>
+    <form id="reserva-form">
+      <input type="hidden" id="nombreUsuario" name="nombreUsuario">
+
+      <label for="habitacion">Tipo de habitación:</label><br>
+      <select id="habitacion" name="habitacion" required>
+        <option value="">-- Selecciona una opción --</option>
+        <option value="sencilla">Habitación sencilla</option>
+        <option value="doble">Habitación doble</option>
+        <option value="familiar">Suite familiar</option>
+      </select>
+      <br><br>
+
+      <label for="fechaEntrada">Fecha de entrada:</label><br>
+      <input type="date" id="fechaEntrada" required><br><br>
+
+      <label for="fechaSalida">Fecha de salida:</label><br>
+      <input type="date" id="fechaSalida" required><br><br>
+
+      <label for="valor">Valor estimado ($COP):</label><br>
+      <input type="number" id="valor" readonly><br><br>
+
+      <button type="submit">Reservar</button>
+      <div id="mensaje-reserva" style="margin-top: 10px; color: green;"></div>
+    </form>
+  </section>
+
+  <section id="areas">
+    <h2>💦 Áreas Húmedas</h2>
+    <div class="item-box">Piscina climatizada</div>
+    <div class="item-box">Spa relajante</div>
+  </section>
+
+  <section id="menu">
+    <h2>🍽️ Menú</h2>
+    <div class="item-box">Desayuno buffet</div>
+    <div class="item-box">Almuerzo a la carta</div>
+    <div class="item-box">Cena romántica</div>
+  </section>
+</div>
+
+<script>
+  // Mostrar los datos del usuario desde localStorage
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
+  if (usuario) {
+    document.getElementById("nombre").textContent = usuario.nombre || "No disponible";
+    document.getElementById("cedula").textContent = usuario.cedula || "No disponible";
+    document.getElementById("telefono").textContent = usuario.telefono || "No disponible";
+    document.getElementById("correo").textContent = usuario.correo || "No disponible";
+
+    document.getElementById("nombreUsuario").value = usuario.nombre;
+  }
+
+  // Calcular el valor de la reserva
+  function calcularValor() {
+    const entrada = new Date(document.getElementById("fechaEntrada").value);
+    const salida = new Date(document.getElementById("fechaSalida").value);
+    const tipo = document.getElementById("habitacion").value;
+
+    const precios = {
+      sencilla: 100000,
+      doble: 180000,
+      familiar: 250000
+    };
+
+    if (entrada && salida && salida > entrada && tipo) {
+      const dias = Math.ceil((salida - entrada) / (1000 * 60 * 60 * 24));
+      const total = dias * precios[tipo];
+      document.getElementById("valor").value = total;
+    } else {
+      document.getElementById("valor").value = "";
+    }
+  }
+
+  document.getElementById("fechaEntrada").addEventListener("change", calcularValor);
+  document.getElementById("fechaSalida").addEventListener("change", calcularValor);
+  document.getElementById("habitacion").addEventListener("change", calcularValor);
+
+  // Enviar reserva al backend
+  document.getElementById("reserva-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const datos = {
+      nombreUsuario: document.getElementById("nombreUsuario").value,
+      habitacion: document.getElementById("habitacion").value,
+      fecha: document.getElementById("fechaEntrada").value + " a " + document.getElementById("fechaSalida").value,
+      valor: document.getElementById("valor").value
+    };
+
+    fetch("/api/reservas", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(datos)
+    })
+    .then(response => {
+      if (response.ok) {
+        document.getElementById("mensaje-reserva").textContent = "✅ ¡Reserva exitosa!";
+        document.getElementById("reserva-form").reset();
+      } else {
+        document.getElementById("mensaje-reserva").textContent = "❌ Error en la reserva.";
+      }
+    })
+    .catch(() => {
+      document.getElementById("mensaje-reserva").textContent = "❌ Problema en el servidor.";
+    });
+  });
+</script>
+
+</body>
+</html>

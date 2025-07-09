@@ -17,12 +17,12 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
-    public Optional<Usuario> buscarPorNombre(String nombre) {
-        return usuarioRepository.findByNombre(nombre);
+    public Optional<Usuario> obtenerUsuarioPorCredenciales(String nombre, String contrasena) {
+        return usuarioRepository.findByNombreAndContrasena(nombre, contrasena);
     }
 
     public boolean validarCredenciales(String nombre, String contrasena) {
-        Optional<Usuario> usuario = usuarioRepository.findByNombre(nombre);
-        return usuario.isPresent() && usuario.get().getContrasena().equals(contrasena);
+        return usuarioRepository.findByNombreAndContrasena(nombre, contrasena).isPresent();
     }
 }
+

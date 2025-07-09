@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - Hotel Paraíso</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-image: url('imagenes/contact.jpg');
+      background-color: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .login-container {
+      background-color: #fff;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    .login-container img {
+      width: 120px;
+      margin-bottom: 15px;
+    }
+
+    .login-container h2 {
+      margin-bottom: 20px;
+    }
+
+    .login-container input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .login-container button {
+      width: 100%;
+      padding: 10px;
+      background-color: #2c7cc9;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .login-container button:hover {
+      background-color: #195a99;
+    }
+
+    .extra-links {
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    .extra-links a {
+      display: block;
+      margin: 5px 0;
+      text-decoration: none;
+      color: #2c7cc9;
+    }
+
+    .extra-links a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <!-- Logo -->
+    <img src="imagenes/logo.hotel.png" alt="Logo Hotel Paraíso">
+
+    <h2>Iniciar Sesión</h2>
+
+    <!-- ✅ Formulario con ID -->
+    <form id="login-form">
+      <input type="text" id="nombre" name="nombre" placeholder="Nombre de usuario" required>
+      <input type="password" id="contrasena" name="contrasena" placeholder="Contraseña" required>
+      <button type="submit">Entrar</button>
+    </form>
+
+    <div class="extra-links">
+      <a href="registro.html">¿Deseas registrarte?</a>
+      <a href="recuperar.html">¿Olvidaste tu contraseña?</a>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("login-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const nombre = document.getElementById("nombre").value;
+      const contrasena = document.getElementById("contrasena").value;
+
+      fetch(`/api/login?nombre=${encodeURIComponent(nombre)}&contrasena=${encodeURIComponent(contrasena)}`, {
+        method: "POST"
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Credenciales inválidas");
+        }
+        return response.json(); // Recibimos un objeto con los datos del usuario
+      })
+      .then(usuario => {
+        localStorage.setItem("usuario", JSON.stringify(usuario)); // Guardamos para el perfil
+        window.location.href = "perfil.html"; // Redirigir al perfil
+      })
+      .catch(error => {
+        alert("❌ " + error.message);
+      });
+    });
+  </script>
+
+</body>
+</html>

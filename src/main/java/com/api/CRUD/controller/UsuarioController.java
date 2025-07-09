@@ -11,6 +11,7 @@ import java.util.Optional;
 /**
  * Controlador REST para gestionar usuarios.
  */
+@CrossOrigin(origins = "http://localhost:5173") // Solo una vez aquí
 @RestController
 @RequestMapping("/api/usuarios")
 public class UsuarioController {
@@ -18,42 +19,35 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    /**
-     * Endpoint para crear un nuevo usuario.
-     * @param usuario El usuario a crear.
-     * @return El usuario creado.
-     */
+    // Crear usuario
     @PostMapping
-    public ResponseEntity<Usuario> crearUsuario(@RequestBody Usuario usuario) {
-        Usuario nuevoUsuario = usuarioService.guardarUsuario(usuario);
-        return ResponseEntity.ok(nuevoUsuario);
+    public ResponseEntity<String> registroUsuario(@RequestBody Usuario usuario) {
+        usuarioService.guardarUsuario(usuario);
+        return ResponseEntity.ok("✅ Registro exitoso");
     }
 
-    /**
-     * Endpoint para buscar un usuario por su nombre.
-     * @param nombre El nombre del usuario a buscar.
-     * @return El usuario encontrado o 404 si no existe.
-     */
-    @GetMapping("/{nombre}")
-    public ResponseEntity<Usuario> buscarUsuario(@PathVariable String nombre) {
-        Optional<Usuario> usuarioOpt = usuarioService.buscarPorNombre(nombre);
-        if (usuarioOpt.isPresent()) {
-            return ResponseEntity.ok(usuarioOpt.get());
+    // Validar con @RequestParam (query params)
+    @PostMapping("/validar")
+    public ResponseEntity<String> validarConQueryParams(@RequestParam String nombre,
+                                                        @RequestParam String contrasena) {
+        boolean esValido = usuarioService.validarCredenciales(nombre, contrasena);
+
+        if (esValido) {
+            return ResponseEntity.ok("✅ Login exitoso (query params)");
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(401).body("❌ Credenciales inválidas");
         }
     }
 
-    /**
-     * Endpoint para validar credenciales de un usuario.
-     * @param nombre El nombre del usuario.
-     * @param contrasena La contraseña ingresada.
-     * @return true si las credenciales son correctas, false en caso contrario.
-     */
-    @PostMapping("/validar")
-    public ResponseEntity<Boolean> validarCredenciales(@RequestParam String nombre,
-                                                        @RequestParam String contrasena) {
-        boolean esValido = usuarioService.validarCredenciales(nombre, contrasena);
-        return ResponseEntity.ok(esValido);
+    // Validar con @RequestBody (JSON)
+    @PostMapping("/validar-json")
+    public ResponseEntity<String> validarConJson(@RequestBody Usuario usuario) {
+        boolean esValido = usuarioService.validarCredenciales(usuario.getNombre(), usuario.getContrasena());
+
+        if (esValido) {
+            return ResponseEntity.ok("✅ Login exitoso (JSON)");
+        } else {
+            return ResponseEntity.status(401).body("❌ Credenciales inválidas");
+        }
     }
 }
